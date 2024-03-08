@@ -1,0 +1,360 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+.home {
+    width: 100%;
+    min-height: 100%;
+    position: relative;
+
+    & section {
+        position: relative;
+        width: 100%;
+        min-height: calc(100vh - 70px);
+    }
+
+    .section1 {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        align-items: center;
+        min-height: calc(100vh - 70px);
+        position: relative;
+
+        & .left-content {
+            width: 600px;
+            height: 100%;
+            padding: 40px 0;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            /* border: 1px solid red; */
+            margin-left: 10px;
+
+            & h2 {
+                font-size: 1.9em;
+                margin-bottom: 40px;
+
+                & span {
+                    letter-spacing: 1px;
+                    font-size: 1.4em;
+                    font-family: "Permanent Marker", cursive;
+                }
+            }
+
+            h3 {
+                margin-bottom: 30px;
+            }
+
+            p {
+                margin-bottom: 30px;
+                font-size: 1em;
+            }
+
+            .links {
+                /* border: 1px solid red; */
+                padding: 5px 0px;
+
+
+                & .navlink {
+                    text-decoration: none;
+                    margin-right: 20px;
+                    padding: 5px 10px;
+                    cursor: pointer;
+                    border-radius: 90px;
+                    font-weight: 500;
+                    background: white;
+                    color: var(--primarycolor);
+                }
+
+                .navlink:nth-child(2) {
+                    background: var(--primarycolor);
+                    color: white;
+                    border: 1px solid white;
+                }
+            }
+        }
+
+        .image {
+            width: calc(100% - 620px);
+            height: 100%;
+            position: relative;
+            filter: drop-shadow(5px 5px 7px rgba(0, 0, 0, 1));
+            /* border: 3px solid blue; */
+
+            & img {
+                transform: translateY(15px);
+                width: 100%;
+            }
+        }
+    }
+
+    .section2 {
+        text-align: center;
+        background: white;
+        color: #212529;
+        padding: 20px;
+
+        & h1 {
+            font-size: 2em;
+            color: #212529;
+        }
+
+        .cards {
+            width: 100%;
+            display: grid;
+            justify-content: center;
+            grid-template-columns: repeat(4, 1fr);
+            /* align-items: center; */
+            gap: 2em;
+
+            & .card {
+                width: 270px;
+                height: 230px;
+                /* border: 1px solid red; */
+                padding-top: 10px;
+
+                & img {
+                    width: 80px;
+                }
+
+                .title {
+                    font-size: 1.6em;
+                    font-weight: 600;
+                    margin-bottom: 5px;
+                    color: #17191a;
+                }
+
+                .desc {
+                    color: #212529;
+                }
+            }
+        }
+    }
+
+    .section3,
+    .section4,
+    .section5,
+    .section6 {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        min-height: 400px;
+        padding: 20px 0px;
+        color: white;
+
+        & .left {
+            width: 500px;
+            /* border: 1px solid red; */
+            display: flex;
+            justify-content: center;
+
+            & .img {
+                width: 400px;
+                padding: 10px;
+                /* border: 1px solid red; */
+
+                & img {
+                    width: 100%;
+                }
+            }
+        }
+
+        .right {
+            width: 600px;
+            padding: 0 10px;
+            /* border: 1px solid red; */
+
+            & h3 {
+                font-size: 3em;
+                font-weight: 500;
+                margin-bottom: 10px;
+            }
+
+            h4 {
+                font-weight: 400;
+                margin-bottom: 10px;
+            }
+
+            p {
+                /* border: 1px solid red; */
+                margin-bottom: 5px;
+                display: flex;
+
+                & img {
+                    border: 1px solid white;
+                    border-radius: 50%;
+                    width: 20px;
+                    margin-right: 7px;
+                }
+            }
+        }
+    }
+
+    .section4,
+    .section6 {
+        background: white;
+        color: #17191a;
+    }
+
+    .section6 .left .img {
+        width: 500px;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .home {
+
+        .section2 {
+            padding: 7px;
+
+            & h1 {
+                font-size: 1.5em;
+            }
+
+            .cards {
+                grid-template-columns: repeat(3, 1fr);
+                justify-content: center;
+                align-items: center;
+                gap: 0.6em;
+
+                & .card {
+                    width: 230px;
+
+                    & img {
+                        width: 80px;
+                    }
+
+                    .title {
+                        font-size: 1.4em;
+                    }
+
+                    .desc {
+                        font-size: 13px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .home {
+
+        & .section1 {
+            & .left-content {
+                padding: 10px 5px;
+                margin: 0;
+                width: 100%;
+                background: rgba(0, 0, 0, .3);
+
+                & h2 {
+                    font-size: 1.5em;
+                    margin-bottom: 10px;
+
+                    & span {
+                        font-size: 1.1em;
+                    }
+                }
+
+                h3 {
+                    margin-bottom: 10px;
+                }
+            }
+
+            .image {
+                width: 100%;
+                display: flex;
+                justify-content: end;
+                /* transform: translateY(-200px); */
+
+                & img {
+                    width: 100%;
+                    transform: translateY(10px);
+                }
+            }
+        }
+
+        .section2 {
+            padding: 7px;
+
+            & h1 {
+                font-size: 1.3em;
+            }
+
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+                justify-content: center;
+                gap: 0.3em;
+
+                & .card {
+                    width: 200px;
+                    /* border: 1px solid red; */
+
+                    & img {
+                        width: 70px;
+                    }
+
+                    .title {
+                        font-size: 1.3em;
+                    }
+
+                    .desc {
+                        font-size: 12px;
+                        color: #212529;
+                    }
+                }
+            }
+        }
+
+        .section3,
+        .section4,
+        .section5,
+        .section6 {
+            align-items: center;
+            justify-content: center;
+            padding: 10px 0px;
+
+            & .left {
+                width: 98%;
+                display: flex;
+                justify-content: center;
+
+                & .img {
+                    width: 400px;
+                    padding: 10px;
+
+                    & img {
+                        width: 100%;
+                        border: 1px solid grey;
+                        border-radius: 10px;
+                    }
+                }
+            }
+
+            .right {
+                width: 98%;
+
+                & h3 {
+                    text-align: center;
+                    font-size: 2em;
+                }
+
+                h4 {
+                    text-align: center;
+                }
+
+                p {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+
+    .section4,
+    .section6 {
+        background: white;
+        color: #17191a;
+    }
+}

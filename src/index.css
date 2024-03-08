@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Moon+Dance&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  /* font-family: "Times New Roman", Times, serif; */
+}
+input{
+  color: rgb(40, 37, 37);
+}
+:root {
+  --navheight: 60px;
+  --navheightmobile:50px;
+  /* --primarycolor: #2980b9; */
+  --primarycolor: rgb(2, 54, 58);
+  --hovercolor: rgb(13, 88, 94);
+  --secondarycolor: #2f1c6a;
+  --thirdcolor: #150645;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background:  white;
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  /* user-select: none; */
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.nav {
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: var(--navheight);
+  width: 100%;
+  z-index: 60;
+}
+
+.main {
+  position: relative;
+  min-height: calc(100vh - var(--navheight));
+  /* border: 3px solid red; */
+  width: 100%;
+}
+.main.loader{
+  position: relative;
+  max-height: calc(100vh - var(--navheight));
+  overflow: hidden;
+  width: 100%;
+}
+
+.preloder{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:#f0f0f0;
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+}
+
+button, .splbtn{
+  border: none;
+   cursor: pointer;
+   outline: none;
+   padding: 10px 18px;
+   color: white;
+   font-size: 1.2em;
+   font-weight: 600;
+   letter-spacing: 2px;
+   border-radius: 5px;
+   background: rgb(40, 37, 37);
+   transition: 0.2s;
+}
+button:disabled{
+  background: grey !important;
+}
+
+button:active,button:hover{
+  background: rgb(61, 58, 58);
+}
+input{
+  color: rgb(27, 25, 25) !important;
+}
+.notfound {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #212529;
+
+  & div{
+      width: 500px;
+      border: 1px solid rgb(207, 203, 203);
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+
+      & .sad{
+          font-size: 4em;
+      }
+  }
+}
+.navlink{
+  color: white;
+}
+.modal{
+  border: 3px solid red;
+}
+
+@media only screen and (max-width: 600px) {
+
+  .nav {
+    height: var(--navheightmobile);
+  }
+  
+  .main {
+    min-height: calc(100vh - var(--navheightmobile));
+  }
+  .notfound {
+    & div{
+        width: 95%;
+        height: max-content;
+    }
+  }
+}

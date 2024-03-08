@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Moon+Dance&display=swap');
+
+.nav {
+    /* border: 1px solid red; */
+    background: var(--primarycolor);
+    transition: 0.2s;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    /* font-family:Arial */
+    header {
+        width: 100%;
+        height: 100%;
+        /* border: 5px solid red; */
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 40px;
+
+        & .logo {
+            /* border: 1px solid red; */
+            padding: 0 10px;
+            display: flex;
+            align-items: center;
+            color: white;
+
+            & img {
+                width: 60px;
+            }
+
+            .navlink {
+                display: flex;
+                /* border: 1px solid red; */
+                align-items: end;
+                /* width: 200px; */
+                text-decoration: none;
+            }
+        }
+
+        nav ul {
+            /* border: 1px solid red; */
+
+            .navlink {
+
+                &.active li {
+                    border-bottom: 1px solid white;
+                    background: white;
+                    color: var(--primarycolor);
+                }
+
+                li {
+                    list-style: none;
+                    display: inline-block;
+                    text-decoration: none;
+                    color: white;
+                    margin-left: 20px;
+                    font-size: 15px;
+                    border-radius: 50px;
+                    padding: 4px 8px;
+                    border: 1px solid transparent;
+                    transition: .4s;
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+@media only screen and (max-width: 800px) {
+
+    .nav {
+
+        & header {
+            padding: 5px;
+
+            & .logo {
+                padding: 0 5px;
+
+                & img {
+                    width: 50px;
+                }
+            }
+
+            nav ul {
+
+                .navlink {
+
+                    li {
+                        /* border: 1px solid red; */
+                        margin-left: 5px;
+                        font-size: 12px;
+                        border-radius: 50px;
+                        padding: 4px 6px;
+                    }
+                }
+
+                .btna {
+                    transform: scale(.7);
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+
+    .nav {
+
+        & header {
+            padding: 2px 5px;
+
+            & .logo {
+
+                & img {
+                    width: 40px;
+                }
+                h2{
+                    font-size: 14px;
+                }
+            }
+
+            nav ul {
+
+                .navlink {
+
+                    li {
+                        margin-left: 2px;
+                        font-size: 10px;
+                        padding: 3px 5px;
+                    }
+                }
+
+                .btna {
+                    transform: scale(.5);
+                }
+            }
+        }
+    }
+}
