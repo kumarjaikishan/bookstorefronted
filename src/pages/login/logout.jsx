@@ -8,7 +8,7 @@ const Logout = () => {
   const dispatch = useDispatch();
   let navigate = useNavigate();
   useEffect(() => {
-    localStorage.clear("token");
+    localStorage.clear("bookstoretoken");
     document.title = "AccuSoft";
     dispatch(userlogout());
     dispatch(setlogin(false));

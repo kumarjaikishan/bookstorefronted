@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import './navbar.css';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import logo from '../../assets/logopng250.webp'
+import logo from '../../assets/book.webp'
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -11,19 +11,22 @@ const Navbar = () => {
     //  console.log(log);
   }, [])
 
+  
+
   return (
     <>
       <div className='nav'>
         <header>
           <div className="logo">
             <NavLink className="navlink" to='/' >
-              <img src={logo} alt="" /> <h2>BattleFiesta</h2>
+              <img src={logo} alt="" /> <h2>BookStore</h2>
             </NavLink>
           </div>
           <nav>
             <ul>
-              <NavLink className="navlink" to='/dashboard'><li>Dashboard</li></NavLink>
-              <NavLink className="navlink" to='/profile'><li>Profile</li></NavLink>
+              <NavLink className="navlink" to='/'><li>Home</li></NavLink>
+              <NavLink className="navlink" to='/book'><li>Book Store</li></NavLink>
+              <NavLink className="navlink" to='/author'><li>Aurthor</li></NavLink>
               {log.islogin && log.isadmin && <NavLink className="navlink" to='/admin'><li>Admin</li></NavLink>}
               <NavLink className="navlink" to='/tournaments'><li>Find Tournament</li></NavLink>
               <NavLink className="navlink" to='/logout'><li>Logout</li></NavLink>

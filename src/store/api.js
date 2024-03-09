@@ -24,15 +24,11 @@ export const alltourna = createAsyncThunk("alltourna", async () => {
 const tournacenter = createSlice({
     name: "user",
     initialState: {
-        alltournaments: [],
-        current_tourna_details: [],
-        user: {},
         links: "",
         loading: false,
         error: null,
         profilepic: "",
         createnewmodal: false,
-        linkaddress:'https://battlefiesta.vercel.app',
         // apiadress: "https://esport-backend.vercel.app",
         apiadress: "http://localhost:5000",
     },

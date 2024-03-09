@@ -63,17 +63,9 @@ const Signin = () => {
                 setbtnclick(false);
                 dispatch(setloader(true));
                 dispatch(setadmin(data.isadmin));
-                localStorage.setItem("token", data.token);
-                dispatch(alltourna());
-                dispatch(profilefetch());
-                if(data.isadmin){
-                    dispatch(memshipentry());
-                    dispatch(contactusform());
-                    dispatch(voucher());
-                    dispatch(membership());
-                    dispatch(Users());
-                }
-                return navigate('/dashboard');
+                localStorage.setItem("bookstoretoken", data.token);
+               
+                return navigate('/');
             }
             else if (res.ok && res.status == 201) {
                 dispatch(setloader(false));
