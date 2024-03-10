@@ -37,8 +37,12 @@ const Payment = () => {
         }
     }
     const buy = async () => {
+        if(date == ""){
+         return   toast.warn('Fill fill Buy Date', {autoClose:1800})
+        }
         let bookId = book.bookId;
         let objectid = book._id
+        // console.log(date);
         try {
             const token = localStorage.getItem("bookstoretoken");
             const response = await fetch(`${tournacenter.apiadress}/buybook/${bookid}`, {
@@ -47,7 +51,7 @@ const Payment = () => {
                     "Authorization": `Bearer ${token}`,
                     "Content-Type": 'application/json'
                 },
-                body: JSON.stringify({coupon,objectid})
+                body: JSON.stringify({coupon,objectid,date})
             });
 
             const responseData = await response.json();
@@ -61,8 +65,9 @@ const Payment = () => {
             console.error(error);
         }
     }
-    const handlechange=()=>{
-        
+    const handlechange=(e)=>{
+
+        setdate(e.target.value);
     }
 
     return <>
@@ -92,7 +97,7 @@ const Payment = () => {
                         <span>Final Price</span><span>:</span> <span>510</span>
                     </div>
                     <div>
-                        Buy Date : <input onChange={handlechange} type="date" />
+                        Buy Date : <input value={date} onChange={handlechange} type="date" />
                     </div>
                 </div>
                 <div>

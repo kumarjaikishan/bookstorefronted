@@ -11,10 +11,10 @@ const Bookstore = () => {
     useEffect(() => {
         feteche();
     }, [])
-    
+
     const navigate = useNavigate();
-    
-    const [booklist,setbooklist]= useState([]);
+
+    const [booklist, setbooklist] = useState([]);
 
     const feteche = async () => {
         try {
@@ -32,7 +32,7 @@ const Bookstore = () => {
                 return;
             }
             setbooklist(responseData.data)
-           
+
         } catch (error) {
             console.error(error);
         }
@@ -50,12 +50,11 @@ const Bookstore = () => {
         <div className="bookstore">
             <div className="material">
                 <div className="cards">
-                {!booklist.length && <div className="notfound">
+                    {!booklist.length && <div className="notfound">
                         <div>
                             <SentimentDissatisfiedIcon className="sad" />
                             <h2>No Book Found</h2>
-                            <p>Please Add Books.</p>
-
+                            <p>No Book publish Yet.</p>
                         </div>
                     </div>}
                     {booklist && booklist.map((val, ind) => {

@@ -10,6 +10,7 @@ import Author from './pages/author/author';
 import Logout from './pages/login/logout';
 import Bookdetail from './pages/bookdetail/bookdetail';
 import Payment from './pages/payment/payment';
+import Admin from './pages/admin/admin';
 
 function App() {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ function App() {
             </Route>
             <Route path="/payment/:bookid" element={<Payment />} />
             <Route path="/author" element={<Author />} />
+            <Route path="/admin" element={<Admin />} />
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
           </Routes>

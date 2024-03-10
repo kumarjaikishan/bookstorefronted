@@ -68,7 +68,7 @@ const Home = () => {
                                         <span>Price</span> <span>:</span> <span>{val.price}</span>
                                     </div>
                                     <div>
-                                        <span>Buy Date</span> <span>:</span> <span>{formatMongoDate(val.createdAt)}</span>
+                                        <span>Buy Date</span> <span>:</span> <span>{formatMongoDate(val.purchaseDate)}</span>
                                     </div>
                                     <div>
                                         <Button onClick={() => details(val.slug_value)} sx={{ mt: 1 }} size='small' variant="contained">Details</Button>

@@ -5,14 +5,11 @@ import InputAdornment from '@mui/material/InputAdornment';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { setloader, setlogin,setadmin } from '../../store/login';
+import { setloader, setlogin,setuser } from '../../store/login';
 import { useSelector, useDispatch } from 'react-redux';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
-import { alltourna } from '../../store/api'
-import { profilefetch } from '../../store/profile'
 import { toast } from 'react-toastify';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { memshipentry,contactusform,voucher,membership,Users } from '../../store/admin';
 
 const Signin = () => {
     let navigate = useNavigate();
@@ -58,14 +55,16 @@ const Signin = () => {
             const data = await res.json();
             if (res.ok && res.status == 200) {
                 dispatch(setlogin(true));
-                // console.log(data);
+                console.log(data);
                 toast.success(data.msg, { autoClose: 1300 });
                 setbtnclick(false);
-                dispatch(setloader(true));
-                dispatch(setadmin(data.isadmin));
+                // dispatch(setloader(true));
+                dispatch(setuser(data.userType));
                 localStorage.setItem("bookstoretoken", data.token);
-               
-                return navigate('/');
+                data.userType == "retail" && navigate('/');
+                data.userType == "author" && navigate('/author');
+                data.userType == "admin" && navigate('/admin');
+                return;
             }
             else if (res.ok && res.status == 201) {
                 dispatch(setloader(false));
@@ -74,7 +73,7 @@ const Signin = () => {
             }
             else {
                 // console.log(data);
-                toast.warn(data.msg ? data.msg : "Error Occured", { autoClose: 1500 });
+                toast.warn(data.message, { autoClose: 1500 });
                 setbtnclick(false);
                 dispatch(setloader(false));
             }

@@ -93,12 +93,20 @@ const Author = () => {
         totalsale: 0,
         totalincome: 0
     })
+    const formatMongoDate = (date)=> {
+        const options = { 
+            year: 'numeric', 
+            month: 'short', 
+            day: '2-digit' 
+        };
+        return new Date(date).toLocaleDateString('en-US', options);
+    }
     return <>
         <div className="createbook">
             <div className="head">
                 <div className="stats">
                     <div>
-                        <span>All Book Sale</span> <span>:</span> <span>{salesdata.totalsale}</span>
+                        <span>Total Book Sale</span> <span>:</span> <span>{salesdata.totalsale}</span>
                     </div>
                     <div>
                         <span>Sale Amount</span> <span>:</span> <span>{salesdata.totalincome}</span>
@@ -147,7 +155,7 @@ const Author = () => {
                     })}
 
                 </div>
-                <div className="recentpurchase">
+                {booklist.length > 0 && <div className="recentpurchase">
                     <h2>Recent Sale</h2>
                     {booksale && booksale.slice(0, 5).map((val, ind) => {
                         return <div key={ind}>
@@ -160,10 +168,13 @@ const Author = () => {
                             <div>
                                 <span>Price</span> : <span>{val.price}</span>
                             </div>
+                            <div>
+                                <span>Sell Date</span> : <span>{formatMongoDate(val.purchaseDate)}</span>
+                            </div>
                         </div>
                     })}
 
-                </div>
+                </div>}
 
             </div>
 

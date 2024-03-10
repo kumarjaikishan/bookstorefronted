@@ -8,10 +8,10 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const log = useSelector((state) => state.login);
   useEffect(() => {
-    //  console.log(log);
+    // console.log("navbar", log);
   }, [])
 
-  
+
 
   return (
     <>
@@ -24,10 +24,12 @@ const Navbar = () => {
           </div>
           <nav>
             <ul>
-              <NavLink className="navlink" to='/'><li>Dashboard</li></NavLink>
-              <NavLink className="navlink" to='/book'><li>Book Store</li></NavLink>
-              <NavLink className="navlink" to='/author'><li>Aurthor</li></NavLink>
-              {log.islogin && log.isadmin && <NavLink className="navlink" to='/admin'><li>Admin</li></NavLink>}
+              {log.userType == "retail" && <> <NavLink className="navlink" to='/'><li>Dashboard</li></NavLink>
+                <NavLink className="navlink" to='/book'><li>Book Store</li></NavLink>
+              </>}
+              {log.userType == "author" && <NavLink className="navlink" to='/author'><li>Dashboard</li></NavLink>}
+
+              {log.userType == "admin" && <NavLink className="navlink" to='/admin'><li>Admin</li></NavLink>}
               <NavLink className="navlink" to='/logout'><li>Logout</li></NavLink>
             </ul>
           </nav>

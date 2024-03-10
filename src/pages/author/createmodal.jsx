@@ -15,13 +15,13 @@ const Cretaemodal = ({ setopenmodal,fetche }) => {
         price: "",
         description: ""
     }
+    const [isloading,setisloading]=useState(false);
     const [inp, setinp] = useState(init)
     const handlechange = (e, field) => {
         setinp({
             ...inp, [field]: e.target.value
         })
     }
-    const [isloading, setisloading] = useState(false);
 
     const createnew = async (e) => {
         e.preventDefault();
