@@ -27,7 +27,7 @@ const Cretaemodal = ({ setopenmodal,fetche }) => {
         e.preventDefault();
         // console.log(inp);
         try {
-            // setisloading(true);
+            setisloading(true);
             const token = localStorage.getItem("bookstoretoken");
             const response = await fetch(`${tournacenter.apiadress}/createaurthorbooks`, {
                 method: "POST",

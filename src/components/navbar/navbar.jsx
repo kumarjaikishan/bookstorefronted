@@ -24,11 +24,10 @@ const Navbar = () => {
           </div>
           <nav>
             <ul>
-              <NavLink className="navlink" to='/'><li>Home</li></NavLink>
+              <NavLink className="navlink" to='/'><li>Dashboard</li></NavLink>
               <NavLink className="navlink" to='/book'><li>Book Store</li></NavLink>
               <NavLink className="navlink" to='/author'><li>Aurthor</li></NavLink>
               {log.islogin && log.isadmin && <NavLink className="navlink" to='/admin'><li>Admin</li></NavLink>}
-              <NavLink className="navlink" to='/tournaments'><li>Find Tournament</li></NavLink>
               <NavLink className="navlink" to='/logout'><li>Logout</li></NavLink>
             </ul>
           </nav>

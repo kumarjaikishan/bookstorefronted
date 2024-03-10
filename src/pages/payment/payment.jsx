@@ -3,6 +3,7 @@ import './payment.css';
 import Button from '@mui/material/Button';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 const Payment = () => {
     const tournacenter = useSelector((state) => state.tournacenter);
@@ -11,6 +12,8 @@ const Payment = () => {
         feteche();
     }, [])
     const [book,setbook]= useState({});
+    const [coupon,setcoupon]= useState('');
+    const [date,setdate]= useState('');
 
     const feteche = async () => {
         try {
@@ -34,6 +37,8 @@ const Payment = () => {
         }
     }
     const buy = async () => {
+        let bookId = book.bookId;
+        let objectid = book._id
         try {
             const token = localStorage.getItem("bookstoretoken");
             const response = await fetch(`${tournacenter.apiadress}/buybook/${bookid}`, {
@@ -42,19 +47,22 @@ const Payment = () => {
                     "Authorization": `Bearer ${token}`,
                     "Content-Type": 'application/json'
                 },
-                body: JSON.stringify(inp)
+                body: JSON.stringify({coupon,objectid})
             });
 
             const responseData = await response.json();
             console.log(responseData);
             if (!response.ok) {
-                return;
+                return  toast.warn(responseData.message, {autoClose:2100});
             }
-            setbooklist(responseData.data)
+            toast.success(responseData.message, {autoClose:1600})
 
         } catch (error) {
             console.error(error);
         }
+    }
+    const handlechange=()=>{
+        
     }
 
     return <>
@@ -70,10 +78,9 @@ const Payment = () => {
                     <div>
                         <span>Author</span> <span>:</span> <span>{book && book.author_name}</span>
                     </div>
-                    <div>
-                        <span>Description</span> <span>:</span> <span>{book && book.description}</span>
-                    </div>
                 </div>
+                <b><p>Description :- </p></b>
+                <div>{book && book.description}</div>
                 <div>
                     <div>
                         <span>Price</span><span>:</span> <span>{book && book.price}</span>
@@ -84,10 +91,13 @@ const Payment = () => {
                     <div>
                         <span>Final Price</span><span>:</span> <span>510</span>
                     </div>
+                    <div>
+                        Buy Date : <input onChange={handlechange} type="date" />
+                    </div>
                 </div>
                 <div>
-                    <Button onClick={() => buypage(val.bookId)} sx={{ mt: 1 }} size='small' variant="contained">Proceed To Buy</Button>
-                    <Button onClick={() => buypage(val.bookId)} sx={{ ml: 1, mt: 1 }} size='small' variant="outlined">Back</Button>
+                    <Button onClick={buy} sx={{ mt: 1 }} size='small' variant="contained">Proceed To Buy</Button>
+                    <Button onClick={() => cancel(val.bookId)} sx={{ ml: 1, mt: 1 }} size='small' variant="outlined">Back</Button>
                 </div>
             </div>
         </div>

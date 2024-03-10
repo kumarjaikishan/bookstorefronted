@@ -1,20 +1,21 @@
-.createbook , .bookstore{
+.createbook , .bookstore, .home{
     width: 100%;
     min-height: calc(100vh - var(--navheight));
-    border: 1px solid red;
+    /* border: 1px solid red; */
     position: relative;
 
     .head {
         width: 100%;
         position: relative;
-        height: 45px;
+        height: 80px;
         /* border: 1px solid red; */
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
         padding: 0px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
         .plus {
-            float: right;
-            width: 40px;
-            height: 40px;
             background: rgb(2, 82, 132);
             border-radius: 5px;
             color: white;
@@ -24,14 +25,16 @@
 
     .material {
         width: 100%;
+        display: flex;
 
         .cards {
-            width: 100%;
+            width: calc(100%- 310px);
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             grid-gap: 1rem;
             justify-items: center;
             padding: 0.6em 1em;
+            /* border: 1px solid blue; */
 
             .card {
                 width: 210px;
@@ -55,6 +58,16 @@
 
                 .detail {
                     padding: 5px 8px;
+
+                    div{
+
+                        & span:nth-child(1){
+                            font-weight: 500;
+                        }
+                        & span:nth-child(3){
+                            font-size: 14px;
+                        }
+                    }
                 }
 
                 .conta {
@@ -66,6 +79,24 @@
                     display: flex;
                     justify-content: space-around;
                 }
+            }
+        }
+        .recentpurchase{
+            border-left: 1px solid grey;
+            padding-left: 5px;
+            width: 350px;
+            min-height: calc(100vh - var(--navheight));
+            overflow: auto;
+
+            h2{
+                text-align: center;
+            }
+
+            >div{
+                border: 1px solid grey;
+                margin: 5px 0px;
+                border-radius: 5px;
+                padding: 5px;
             }
         }
     }

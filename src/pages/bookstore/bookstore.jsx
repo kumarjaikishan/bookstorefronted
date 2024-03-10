@@ -73,6 +73,9 @@ const Bookstore = () => {
                                 <div>
                                     <span>Price</span> <span>:</span> <span>{val.price}</span>
                                 </div>
+                                <div>
+                                    <span>Sell count</span> <span>:</span> <span>{val.sellCount}</span>
+                                </div>
                                 <div className='buttons'>
                                     <Button onClick={() => bookdetail(val.slug_value)} sx={{ mt: 1 }} size='small' variant="contained">Details</Button>
                                     <Button onClick={() => buypage(val.bookId)} sx={{ mt: 1 }} size='small' variant="outlined">Buy Now</Button>
