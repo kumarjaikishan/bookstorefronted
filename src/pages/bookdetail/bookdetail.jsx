@@ -3,21 +3,27 @@ import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import './bookdetail.css'
+import { useNavigate } from "react-router-dom";
+import bookimg from '../../assets/book.webp'
+import Rating from '@mui/material/Rating';
+import Button from '@mui/material/Button';
 
 
 const Bookdetail = () => {
     const { bookid } = useParams();
+    const navigate = useNavigate();
     const tournacenter = useSelector((state) => state.tournacenter);
-    
+
     useEffect(() => {
         feteche();
     }, [])
-    const [book,setbook]= useState({});
+    const [book, setbook] = useState({});
+    const [review, setreview] = useState([]);
 
-    const feteche= async()=>{
+    const feteche = async () => {
         try {
-            
-        const token = localStorage.getItem("bookstoretoken");
+
+            const token = localStorage.getItem("bookstoretoken");
             const response = await fetch(`${tournacenter.apiadress}/bookdetail/${bookid}`, {
                 method: "GET",
                 headers: {
@@ -28,18 +34,49 @@ const Bookdetail = () => {
             const responseData = await response.json();
             console.log(responseData);
             if (!response.ok) {
-             return  toast.warn(responseData.message, {autoClose:2100})
+                return toast.warn(responseData.message, { autoClose: 2100 })
             }
+            setreview(responseData.reviews)
             setbook(responseData.data);
         } catch (error) {
             console.error(error);
-            // dispatch(setloader(false));
         }
+    }
+    const formatMongoDate = (date) => {
+        const options = {
+            year: 'numeric',
+            month: 'short',
+            day: '2-digit'
+        };
+        return new Date(date).toLocaleDateString('en-US', options);
     }
 
     return <>
         <div className="bookdetail">
-            <div className="material">
+            <div className="book">
+                <div className="img">
+                    <img src={bookimg} alt="" />
+                    <span className="reviews">{book.Noofrating} Reviews</span>
+                    <span className="rating">Rating: {book.rating}</span>
+                </div>
+                <div><span>Name</span> <span>:</span><span>{book.book_title}</span></div>
+                <div><span>Author</span> <span>:</span><span>{book.author_name}</span></div>
+                <div><span>price</span> <span>:</span><span>{book.price}</span></div>
+                <Button onClick={() => navigate(`/payment/${book.bookId}`)} variant="contained">Proceed to Buy</Button>
+                <p>description:- </p>
+                <p>{book.description}</p>
+            </div>
+            <div className="review">
+                <h2>Rating & Reviews</h2>
+                {review && review.map((val, ind) => {
+                    return <div className="ind" key={ind}>
+                        <div>{val.userId.name}</div>
+                        <div>
+                            <Rating name="read-only" value={val.rating} readOnly /> <span>, On {formatMongoDate(val.createdAt)}</span>
+                        </div>
+                        <p>{val.review}</p>
+                    </div>
+                })}
 
             </div>
         </div>

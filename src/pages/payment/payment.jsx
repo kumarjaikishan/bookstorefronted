@@ -76,7 +76,7 @@ const Payment = () => {
     }
 
     return <>
-        <h1>{bookid}</h1>
+        {/* <h1>{bookid}</h1> */}
         <div className="paymentpage">
             <div className="material">
                 <h2>Payment Page</h2>
