@@ -1,6 +1,8 @@
 import { useParams } from 'react-router-dom';
 import './payment.css';
 import Button from '@mui/material/Button';
+import DoneIcon from '@mui/icons-material/Done';
+import LoadingButton from '@mui/lab/LoadingButton';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
@@ -8,6 +10,7 @@ import { toast } from "react-toastify";
 const Payment = () => {
     const tournacenter = useSelector((state) => state.tournacenter);
     const { bookid } = useParams();
+    const [isloading,setisloading]= useState(false);
     useEffect(() => {
         feteche();
     }, [])
@@ -26,7 +29,7 @@ const Payment = () => {
             });
 
             const responseData = await response.json();
-            console.log(responseData);
+            // console.log(responseData);
             if (!response.ok) {
                 return;
             }
@@ -44,6 +47,7 @@ const Payment = () => {
         let objectid = book._id
         // console.log(date);
         try {
+            setisloading(true);
             const token = localStorage.getItem("bookstoretoken");
             const response = await fetch(`${tournacenter.apiadress}/buybook/${bookid}`, {
                 method: "POST",
@@ -55,13 +59,14 @@ const Payment = () => {
             });
 
             const responseData = await response.json();
-            console.log(responseData);
+            // console.log(responseData);
             if (!response.ok) {
                 return  toast.warn(responseData.message, {autoClose:2100});
             }
             toast.success(responseData.message, {autoClose:1600})
-
+            setisloading(false);
         } catch (error) {
+            setisloading(false);
             console.error(error);
         }
     }
@@ -101,7 +106,19 @@ const Payment = () => {
                     </div>
                 </div>
                 <div>
-                    <Button onClick={buy} sx={{ mt: 1 }} size='small' variant="contained">Proceed To Buy</Button>
+                    {/* <Button onClick={buy} sx={{ mt: 1 }} size='small' variant="contained">Proceed To Buy</Button> */}
+                    <LoadingButton
+                            loading={isloading}
+                            loadingPosition="start"
+                            startIcon={<DoneIcon/>}
+                            variant="contained"
+                            onClick={buy}
+                            size='small'
+                            // sx={{width:'400px'}}
+                            sx={{ mt: 1}}
+                        >
+                            Proceed to Buy
+                        </LoadingButton>
                     <Button onClick={() => cancel(val.bookId)} sx={{ ml: 1, mt: 1 }} size='small' variant="outlined">Back</Button>
                 </div>
             </div>

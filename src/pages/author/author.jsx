@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import './author.css'
 import { useSelector, useDispatch } from "react-redux";
 import Cretaemodal from './createmodal';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
 import book from '../../assets/book.webp'
 import CreateIcon from '@mui/icons-material/Create';
 import { toast } from "react-toastify";
@@ -46,6 +48,33 @@ const Author = () => {
             // dispatch(setloader(false));
         }
     }
+    const [isloading, setisloading] = useState(false);
+
+    const getemail = async () => {
+        const token = localStorage.getItem("bookstoretoken");
+        // console.log(token);
+        try {
+            setisloading(true);
+            const response = await fetch(`${tournacenter.apiadress}/revenuedetail`, {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                }
+            });
+
+            const responseData = await response.json();
+            // console.log(responseData);
+            if (response.ok) {
+                toast.success(responseData.message, { autoClose: 1800 });
+            }
+            setisloading(false);
+        } catch (error) {
+            setisloading(false);
+            console.error(error);
+            // dispatch(setloader(false));
+        }
+    }
+
     const [openmodal, setopenmodal] = useState(false);
     const bookdetail = (slug) => {
         return navigate(`/book/${slug}`)
@@ -93,11 +122,11 @@ const Author = () => {
         totalsale: 0,
         totalincome: 0
     })
-    const formatMongoDate = (date)=> {
-        const options = { 
-            year: 'numeric', 
-            month: 'short', 
-            day: '2-digit' 
+    const formatMongoDate = (date) => {
+        const options = {
+            year: 'numeric',
+            month: 'short',
+            day: '2-digit'
         };
         return new Date(date).toLocaleDateString('en-US', options);
     }
@@ -112,7 +141,18 @@ const Author = () => {
                         <span>Sale Amount</span> <span>:</span> <span>{salesdata.totalincome}</span>
                     </div>
                 </div>
-               <Button className='plus' onClick={() => setopenmodal(true)} variant="contained" startIcon={<AddIcon />}>
+                <LoadingButton
+                    className='plus'
+                    loading={isloading}
+                    loadingPosition="start"
+                    startIcon={<MailOutlineIcon />}
+                    variant="contained"
+                    onClick={getemail}
+                    sx={{ mt: 1 }}
+                >
+                    Get stat Email
+                </LoadingButton>
+                <Button className='plus' onClick={() => setopenmodal(true)} variant="contained" startIcon={<AddIcon />}>
                     Create new Book
                 </Button>
             </div>
@@ -128,7 +168,9 @@ const Author = () => {
                     {booklist && booklist.map((val, ind) => {
                         return <div className="card" key={ind}>
                             <div className="img">
-                                <img src={book} alt="" />
+                                <img src={book} alt="" /> 
+                                <span className="reviews">{val.Noofrating} Reviews</span>
+                                <span className="rating">Rating: {val.rating}</span>
                             </div>
                             <div className="detail">
                                 <div>
@@ -167,6 +209,9 @@ const Author = () => {
                             </div>
                             <div>
                                 <span>Price</span> : <span>{val.price}</span>
+                            </div>
+                            <div>
+                                <span>Sell Id</span> : <span>{val.purchaseId}</span>
                             </div>
                             <div>
                                 <span>Sell Date</span> : <span>{formatMongoDate(val.purchaseDate)}</span>

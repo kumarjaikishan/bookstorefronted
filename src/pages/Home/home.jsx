@@ -32,14 +32,16 @@ const Home = () => {
             // dispatch(setloader(false));
         }
     }
-    const formatMongoDate = (date)=> {
-        const options = { 
-            year: 'numeric', 
-            month: 'short', 
-            day: '2-digit' 
+    const formatMongoDate = (date) => {
+        const options = {
+            year: 'numeric',
+            month: 'short',
+            day: '2-digit'
         };
         return new Date(date).toLocaleDateString('en-US', options);
     }
+   
+   
     return (
         <>
             <div className="home">
@@ -56,6 +58,7 @@ const Home = () => {
                             return <div className="card" key={ind}>
                                 <div className="img">
                                     <img src={book} alt="" />
+                                    <span className="rating">Rating: {val.bookId.rating}</span>
                                 </div>
                                 <div className="detail">
                                     <div>
@@ -72,6 +75,7 @@ const Home = () => {
                                     </div>
                                     <div>
                                         <Button onClick={() => details(val.slug_value)} sx={{ mt: 1 }} size='small' variant="contained">Details</Button>
+                                       
                                     </div>
                                 </div>
                             </div>

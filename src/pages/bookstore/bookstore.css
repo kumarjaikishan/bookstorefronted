@@ -1,0 +1,27 @@
+.bookstore {
+
+    .ratingmodal {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3);
+        display: grid;
+        place-items: center;
+
+        .box {
+            width: 300px;
+            border-radius: 10px;
+            background: white;
+            padding: 10px;
+
+            h2 {
+                text-align: center;
+                margin-bottom: 10px;
+                border-bottom: 1px solid grey;
+                padding: 5px 0px;
+            }
+        }
+    }
+}
