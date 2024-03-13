@@ -14,6 +14,7 @@ const Bookdetail = () => {
     const { bookid } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const log = useSelector((state) => state.login);
     const tournacenter = useSelector((state) => state.tournacenter);
 
     useEffect(() => {
@@ -65,14 +66,18 @@ const Bookdetail = () => {
                 </div>
                 <div><span>Name</span> <span>:</span><span>{book.book_title}</span></div>
                 <div><span>Author</span> <span>:</span><span>{book.author_name}</span></div>
+                <div><span>Book ID</span> <span>:</span><span>{book.bookId}</span></div>
                 <div><span>price</span> <span>:</span><span>{book.price}</span></div>
-                <Button sx={{mt:2,mb:1}} onClick={() => navigate(`/payment/${book.bookId}`)} variant="contained">Proceed to Buy</Button>
-                <p>description:- </p>
+                <div><span>Published On</span> <span>:</span><span>{formatMongoDate(book.createdAt)}</span></div>
+                <div>
+                    {log.userType == "retail" && <Button sx={{ mt: 2, mb: 1 }} onClick={() => navigate(`/payment/${book.bookId}`)} variant="contained">Proceed to Buy</Button>}
+                </div>
+                <b>Description:- </b>
                 <p>{book.description}</p>
             </div>
             <div className="review">
                 <h2>Rating & Reviews</h2>
-                {review.length <  1 && <h3>No Review Available</h3> } 
+                {review.length < 1 && <h3>No Review Available</h3>}
                 {review && review.map((val, ind) => {
                     return <div className="ind" key={ind}>
                         <div>{val.userId.name}</div>

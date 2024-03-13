@@ -116,6 +116,14 @@ const Bookstore = () => {
             // dispatch(setloader(false));
         }
     }
+    const formatMongoDate = (date) => {
+        const options = {
+            year: 'numeric',
+            month: 'short',
+            day: '2-digit'
+        };
+        return new Date(date).toLocaleDateString('en-US', options);
+    }
 
     return <>
         <div className="bookstore">
@@ -143,6 +151,12 @@ const Bookstore = () => {
                                 </div>
                                 <div>
                                     <span>Author</span> <span>:</span> <span>{val.author_name}</span>
+                                </div>
+                                <div>
+                                    <span>Book Id</span> <span>:</span> <span>{val.bookId}</span>
+                                </div>
+                                <div>
+                                    <span>Published On</span> <span>:</span> <span>{formatMongoDate(val.createdAt)}</span>
                                 </div>
                                 <div>
                                     <span>Price</span> <span>:</span> <span>{val.price}</span>

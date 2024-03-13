@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import logo from '../../assets/book.webp'
 
 const Navbar = () => {
-  const dispatch = useDispatch();
   const log = useSelector((state) => state.login);
   useEffect(() => {
     // console.log("navbar", log);
