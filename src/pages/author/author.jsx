@@ -59,7 +59,6 @@ const Author = () => {
         const token = localStorage.getItem("bookstoretoken");
         // console.log(token);
         try {
-            dispatch(setloader(true));
             setisloading(true);
             const response = await fetch(`${tournacenter.apiadress}/revenuedetail`, {
                 method: "GET",
@@ -71,12 +70,10 @@ const Author = () => {
             const responseData = await response.json();
             // console.log(responseData);
             if (response.ok) {
-                dispatch(setloader(false));
                 toast.success(responseData.message, { autoClose: 1800 });
             }
             setisloading(false);
         } catch (error) {
-            dispatch(setloader(false));
             setisloading(false);
             console.error(error);
             // dispatch(setloader(false));

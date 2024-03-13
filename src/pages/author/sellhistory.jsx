@@ -66,7 +66,6 @@ const Sellhistory = () => {
                             <td>{formatMongoDate(val.purchaseDate)}</td>
                             <td>{val.price}</td>
                         </tr>
-
                     })}
                 </tbody>
                 <tfoot>

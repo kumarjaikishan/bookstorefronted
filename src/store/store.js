@@ -7,7 +7,7 @@ import { persistReducer } from 'redux-persist';
 import { combineReducers } from "@reduxjs/toolkit";
 
 const persistConfig = {
-    key: "booksmtore",
+    key: "booksmdtore",
     version: 1,
     storage: storage
 }
