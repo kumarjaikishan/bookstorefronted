@@ -8,8 +8,10 @@ import { useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
 import LoadingButton from '@mui/lab/LoadingButton';
 import book from '../../assets/book.webp'
+import LogoutIcon from '@mui/icons-material/Logout';
 import CreateIcon from '@mui/icons-material/Create';
 import { toast } from "react-toastify";
+import { setloader } from '../../store/login';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
 
@@ -30,6 +32,7 @@ const Author = () => {
         const token = localStorage.getItem("bookstoretoken");
         // console.log(token);
         try {
+            dispatch(setloader(true));
             const response = await fetch(`${tournacenter.apiadress}/getaurthorbooks`, {
                 method: "GET",
                 headers: {
@@ -40,10 +43,12 @@ const Author = () => {
             const responseData = await response.json();
             console.log(responseData);
             if (response.ok) {
+                dispatch(setloader(false));
                 setbooklist(responseData.data);
                 setbooksale(responseData.salerecord)
             }
         } catch (error) {
+            dispatch(setloader(false));
             console.error(error);
             // dispatch(setloader(false));
         }
@@ -54,6 +59,7 @@ const Author = () => {
         const token = localStorage.getItem("bookstoretoken");
         // console.log(token);
         try {
+            dispatch(setloader(true));
             setisloading(true);
             const response = await fetch(`${tournacenter.apiadress}/revenuedetail`, {
                 method: "GET",
@@ -65,10 +71,12 @@ const Author = () => {
             const responseData = await response.json();
             // console.log(responseData);
             if (response.ok) {
+                dispatch(setloader(false));
                 toast.success(responseData.message, { autoClose: 1800 });
             }
             setisloading(false);
         } catch (error) {
+            dispatch(setloader(false));
             setisloading(false);
             console.error(error);
             // dispatch(setloader(false));
@@ -81,6 +89,7 @@ const Author = () => {
     }
     const deletee = async (id) => {
         try {
+            dispatch(setloader(true));
             const token = localStorage.getItem("bookstoretoken");
             const response = await fetch(`${tournacenter.apiadress}/deletebook`, {
                 method: "POST",
@@ -94,11 +103,14 @@ const Author = () => {
             const responseData = await response.json();
             console.log(responseData);
             if (!response.ok) {
+                dispatch(setloader(false));
                 return toast.warn(responseData.message, { autoClose: 2100 })
             }
+            dispatch(setloader(false));
             fetche();
             toast.success(responseData.message, { autoClose: 1600 })
         } catch (error) {
+            dispatch(setloader(false));
             console.error(error);
             // dispatch(setloader(false));
         }
@@ -198,7 +210,9 @@ const Author = () => {
 
                 </div>
                 {booklist.length > 0 && <div className="recentpurchase">
-                    <h2>Recent Sale</h2>
+                    <h2>Recent Sale <Button size='small' className='plus' onClick={() => navigate(`/sellhistory`)} variant="contained" startIcon={<LogoutIcon />}>
+                   SEE ALL
+                </Button></h2>
                     {booksale && booksale.slice(0, 5).map((val, ind) => {
                         return <div key={ind}>
                             <div>

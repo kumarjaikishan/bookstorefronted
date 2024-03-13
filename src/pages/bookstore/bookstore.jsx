@@ -9,6 +9,7 @@ import Rating from '@mui/material/Rating';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { toast } from 'react-toastify';
+import { setloader } from '../../store/login';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { useSelector, useDispatch } from "react-redux";
 import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
@@ -18,13 +19,14 @@ const Bookstore = () => {
     useEffect(() => {
         feteche();
     }, [])
-
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const [booklist, setbooklist] = useState([]);
 
     const feteche = async () => {
         try {
+            dispatch(setloader(true));
             const token = localStorage.getItem("bookstoretoken");
             const response = await fetch(`${tournacenter.apiadress}/getbooks`, {
                 method: "GET",
@@ -36,11 +38,14 @@ const Bookstore = () => {
             const responseData = await response.json();
             console.log(responseData);
             if (!response.ok) {
+                dispatch(setloader(false));
                 return;
             }
             setbooklist(responseData.data)
+            dispatch(setloader(false));
 
         } catch (error) {
+            dispatch(setloader(false));
             console.error(error);
         }
     }
@@ -78,12 +83,13 @@ const Bookstore = () => {
         })
     }
     const review = async () => {
-        console.log(inp);
+        // console.log(inp);
         if (inp.id == "") {
             return toast.warn('Book Id is required', { autoClose: 1800 })
         }
 
         try {
+            setisloading(true);
             const token = localStorage.getItem("bookstoretoken");
             const response = await fetch(`${tournacenter.apiadress}/bookreview`, {
                 method: "POST",
@@ -95,7 +101,8 @@ const Bookstore = () => {
             });
 
             const responseData = await response.json();
-            console.log(responseData);
+            // console.log(responseData);
+            setisloading(false)
             if (!response.ok) {
                 return toast.warn(responseData.message, { autoClose: 1700 })
             }
@@ -103,6 +110,8 @@ const Bookstore = () => {
             setinp(init);
             toast.success(responseData.message, { autoClose: 1700 })
         } catch (error) {
+            setshowmodal
+            setisloading(false)
             console.error(error);
             // dispatch(setloader(false));
         }
@@ -125,7 +134,8 @@ const Bookstore = () => {
                                 <img src={book} alt="" />
                                 <span className="reviews">{val.Noofrating} Reviews</span>
                                 <span className="rating">Rating: {val.rating}</span>
-                                <span className="btn" onClick={() => setmodal(val)} title='Rate'><StarBorderIcon/> </span>
+                                
+                                <span className="btn" onClick={() => setmodal(val)} title='Rate'><StarBorderIcon /> </span>
                             </div>
                             <div className="detail">
                                 <div>
@@ -140,7 +150,7 @@ const Bookstore = () => {
                                 <div>
                                     <span>Sell count</span> <span>:</span> <span>{val.sellCount}</span>
                                 </div>
-                               
+
                                 <div className='buttons'>
                                     <Button onClick={() => bookdetail(val.slug_value)} sx={{ mt: 1 }} size='small' variant="contained">Details</Button>
                                     <Button onClick={() => buypage(val.bookId)} sx={{ mt: 1 }} size='small' variant="outlined">Buy Now</Button>

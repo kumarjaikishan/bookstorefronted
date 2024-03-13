@@ -1,6 +1,8 @@
 .paymentpage {
     width: 100%;
-
+    min-height: calc(100vh - var(--navheight));
+   display: grid;
+   place-items: center;
     /* height: 100%; */
     /* border: 1px solid red; */
     .material {
@@ -14,12 +16,16 @@
             margin-bottom: 10px;
 
             & span:nth-child(1) {
-                width: 170px;
+                width: 120px;
                 display: inline-block;
             }
             & span:nth-child(3) {
                float: right;
             }
+        }
+        p{
+            display: flex;
+            justify-content: space-around;
         }
     }
 }

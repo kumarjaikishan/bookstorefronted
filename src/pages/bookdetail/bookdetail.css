@@ -61,9 +61,16 @@
         padding: 5px 10px;
         border-left: 1px solid grey;
 
+        h2{
+            text-align: center;
+            border-bottom: 1px solid grey;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+
         .ind {
             margin: 5px 0px;
-            padding: 5px 0px;
+            padding: 10px 0px;
             border-bottom: 1px solid grey;
 
             p {
@@ -73,7 +80,10 @@
             div {
                 display: flex;
                 align-items: center;
-                /* background: red; */
+
+                .date{
+                    margin-left: 15px;
+                }
             }
         }
 

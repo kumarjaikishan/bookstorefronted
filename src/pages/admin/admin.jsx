@@ -7,16 +7,19 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { setloader } from "../../store/login";
 import './admin.css'
 
 const Admin = () => {
     useEffect(() => {
         fetche();
     }, [])
+    const dispatch= useDispatch();
     const [users, setusers] = useState([]);
     const tournacenter = useSelector((state) => state.tournacenter);
     const fetche = async () => {
         try {
+            dispatch(setloader(true));
             const token = localStorage.getItem("bookstoretoken");
             const res = await fetch(`${tournacenter.apiadress}/getusers`, {
                 method: "GET",
@@ -27,10 +30,13 @@ const Admin = () => {
             const response = await res.json();
             console.log(response);
             if (!res.ok) {
+                dispatch(setloader(false));
                 return toast.warn(response.message, { autoClose: 2100 })
             }
+            dispatch(setloader(false));
             setusers(response.data);
         } catch (error) {
+            dispatch(setloader(false));
             console.log(error);
         }
     }
@@ -69,6 +75,7 @@ const Admin = () => {
         e.preventDefault();
         // console.log(selectedUser);
         try {
+            dispatch(setloader(true));
             setisloading(true)
             const token = localStorage.getItem("bookstoretoken");
             const res = await fetch(`${tournacenter.apiadress}/edituser`, {
@@ -82,16 +89,19 @@ const Admin = () => {
             const response = await res.json();
             console.log(response);
             if (!res.ok) {
+                dispatch(setloader(false));
                 setisloading(false)
                 setmodalopen(false)
                 return toast.warn(response.message, { autoClose: 2100 })
             }
+            dispatch(setloader(false));
             fetche();
             setisloading(false)
             setmodalopen(false)
             toast.success(response.message, { autoClose: 2100 })
             // setusers(response.data);
         } catch (error) {
+            dispatch(setloader(false));
             setisloading(false)
             setmodalopen(false)
             console.log(error);

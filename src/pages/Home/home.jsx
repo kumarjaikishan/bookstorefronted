@@ -1,13 +1,17 @@
 import { useEffect, useState } from 'react';
 import './home.css'
 import book from '../../assets/book.webp'
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import Button from '@mui/material/Button';
+import { setloader } from '../../store/login';
 import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
 
 const Home = () => {
     const tournacenter = useSelector((state) => state.tournacenter);
     const [booklist, setbooklist] = useState([]);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     useEffect(() => {
         fetche();
     }, [])
@@ -15,6 +19,7 @@ const Home = () => {
         const token = localStorage.getItem("bookstoretoken");
         // console.log(token);
         try {
+            dispatch(setloader(true));
             const response = await fetch(`${tournacenter.apiadress}/getpurchasebook`, {
                 method: "GET",
                 headers: {
@@ -24,10 +29,12 @@ const Home = () => {
 
             const responseData = await response.json();
             console.log(responseData);
+            dispatch(setloader(false));
             if (response.ok) {
                 setbooklist(responseData.data)
             }
         } catch (error) {
+            dispatch(setloader(false));
             console.error(error);
             // dispatch(setloader(false));
         }
@@ -39,6 +46,10 @@ const Home = () => {
             day: '2-digit'
         };
         return new Date(date).toLocaleDateString('en-US', options);
+    }
+    const bookdetail = (slug) => {
+        // console.log(slug);
+        return navigate(`/book/${slug}`)
     }
    
    
@@ -74,7 +85,7 @@ const Home = () => {
                                         <span>Buy Date</span> <span>:</span> <span>{formatMongoDate(val.purchaseDate)}</span>
                                     </div>
                                     <div>
-                                        <Button onClick={() => details(val.slug_value)} sx={{ mt: 1 }} size='small' variant="contained">Details</Button>
+                                        <Button onClick={() => bookdetail(val.bookId.slug_value)} sx={{ mt: 1 }} size='small' variant="contained">Details</Button>
                                        
                                     </div>
                                 </div>

@@ -63,10 +63,13 @@
                         display: inline-block;
                         position: absolute;
                         top: 0;
-                        right: 0;
+                        right: 3px;
                         width: 80px;
                         text-align: center;
                         /* background: red; */
+                    }
+                    .rating{
+                        width: 80px;
                     }
 
                     .reviews {
@@ -188,6 +191,24 @@
         .cards {
             grid-template-columns: repeat(5, 1fr);
 
+        }
+    }
+}
+.sellhistory{
+    /* background-color: red; */
+    width: 100%;
+    min-height: calc(100vh - var(--navheight));
+
+    .material{
+        width: 90%;
+
+        h2{
+            text-align: center;
+        }
+
+        table{
+            width: 100%;
+            text-align: center;
         }
     }
 }
