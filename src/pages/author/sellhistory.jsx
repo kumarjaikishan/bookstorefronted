@@ -51,6 +51,7 @@ const Sellhistory = () => {
                 <thead>
                     <tr>
                         <th>S.no</th>
+                        <th>Book Name</th>
                         <th>Buyer Name</th>
                         <th>Sell Id</th>
                         <th>Sell Date</th>
@@ -61,6 +62,7 @@ const Sellhistory = () => {
                     {booklist && booklist.map((val, ind) => {
                         return <tr key={ind}>
                             <td>{ind + 1}</td>
+                            <td>{val.bookId.book_title}</td>
                             <td>{val.buyerId.name}</td>
                             <td>{val.purchaseId}</td>
                             <td>{formatMongoDate(val.purchaseDate)}</td>
@@ -70,7 +72,7 @@ const Sellhistory = () => {
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th colSpan={4}>Total</th>
+                        <th colSpan={5}>Total</th>
                         <th colSpan={1}>{ booklist && booklist.reduce((total, book) => total + book.price, 0) }</th>
                     </tr>
                 </tfoot>
