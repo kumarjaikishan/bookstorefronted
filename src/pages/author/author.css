@@ -32,7 +32,7 @@
         .cards {
             width: calc(100%- 310px);
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             grid-gap: 1rem;
             justify-items: center;
             padding: 0.6em 1em;
