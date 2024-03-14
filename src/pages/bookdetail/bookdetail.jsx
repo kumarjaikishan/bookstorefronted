@@ -35,7 +35,7 @@ const Bookdetail = () => {
             });
 
             const responseData = await response.json();
-            console.log(responseData);
+            // console.log(responseData);
             dispatch(setloader(false));
             if (!response.ok) {
                 return toast.warn(responseData.message, { autoClose: 2100 })

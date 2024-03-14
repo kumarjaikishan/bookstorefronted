@@ -28,7 +28,7 @@ const Home = () => {
             });
 
             const responseData = await response.json();
-            console.log(responseData);
+            // console.log(responseData);
             dispatch(setloader(false));
             if (response.ok) {
                 setbooklist(responseData.data)

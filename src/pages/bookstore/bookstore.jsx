@@ -36,7 +36,7 @@ const Bookstore = () => {
             });
 
             const responseData = await response.json();
-            console.log(responseData);
+            // console.log(responseData);
             if (!response.ok) {
                 dispatch(setloader(false));
                 return;
@@ -76,7 +76,7 @@ const Bookstore = () => {
     }
     const [showmoadl, setshowmodal] = useState(false);
     const setmodal = (val) => {
-        console.log(val);
+        // console.log(val);
         setshowmodal(true);
         setinp({
             ...inp, id: val._id, bookname: val.book_title

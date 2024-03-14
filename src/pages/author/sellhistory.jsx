@@ -31,7 +31,7 @@ const Sellhistory = () => {
             });
 
             const responseData = await response.json();
-            console.log(responseData);
+            // console.log(responseData);
             if (response.ok) {
                 dispatch(setloader(false));
                 setbooklist(responseData.data);

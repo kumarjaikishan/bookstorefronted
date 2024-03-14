@@ -35,7 +35,7 @@ const Admin = () => {
                 },
             })
             const response = await res.json();
-            console.log(response);
+            // console.log(response);
             if (!res.ok) {
                 dispatch(setloader(false));
                 return toast.warn(response.message, { autoClose: 2100 })
@@ -94,7 +94,7 @@ const Admin = () => {
                 body: JSON.stringify(selectedUser)
             })
             const response = await res.json();
-            console.log(response);
+            // console.log(response);
             if (!res.ok) {
                 dispatch(setloader(false));
                 setisloading(false)
@@ -139,8 +139,8 @@ const Admin = () => {
                                 <td>{val.isverified ? "Verified" : "Unverified"}</td>
                                 <td>{formatMongoDate(val.createdAt)}</td>
                                 <td>
-                                    <span onClick={() => setedit(val)}><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
-                                    <span><i class="fa fa-trash" aria-hidden="true"></i></span>
+                                    <span onClick={() => setedit(val)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></span>
+                                    <span><i className="fa fa-trash" aria-hidden="true"></i></span>
                                 </td>
                             </tr>
                         })}
