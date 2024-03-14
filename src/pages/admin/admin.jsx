@@ -165,7 +165,7 @@ const Admin = () => {
                                 <td>{formatMongoDate(val.createdAt)}</td>
                                 <td>
                                     <span onClick={() => setedit(val)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></span>
-                                    <span onClick={() => deletee(val_id)} ><i className="fa fa-trash" aria-hidden="true"></i></span>
+                                    <span onClick={() => deletee(val._id)} ><i className="fa fa-trash" aria-hidden="true"></i></span>
                                 </td>
                             </tr>
                         })}
