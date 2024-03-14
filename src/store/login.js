@@ -15,17 +15,18 @@ const islogin = createSlice({
         header(state, action){
            state.head = action.payload;
         },
-        setnarrow(state, action){
-           state.narrow = action.payload;
-        },
         setloader(state, action){
            state.loader = action.payload;
         },
         setuser(state, action){
            state.userType = action.payload;
+        },
+        setlogout(state, action){
+           state.userType = 'retail';
+           state.islogin = false;
         }
     }
 
 })
-export const {setuser,setlogin,header,setnarrow,setloader}= islogin.actions;
+export const {setlogout,setuser,setlogin,header,setloader}= islogin.actions;
 export default islogin.reducer;

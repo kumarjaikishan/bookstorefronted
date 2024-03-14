@@ -35,9 +35,6 @@ const tournacenter = createSlice({
     reducers: {
         userlogout(state, action) {
             localStorage.clear();
-            state.explist = [];
-            state.ledgerlist = [];
-            state.user = {};
         },
         profilepicupdtae(state, action) {
             state.profilepic = action.payload;

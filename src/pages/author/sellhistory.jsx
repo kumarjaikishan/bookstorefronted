@@ -1,15 +1,22 @@
 import { useSelector, useDispatch } from "react-redux";
 import { setloader } from "../../store/login";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Sellhistory = () => {
+    const navigate = useNavigate();
+    const log = useSelector((state) => state.login);
     const dispatch = useDispatch();
-    const tournacenter = useSelector((state) => state.tournacenter);
-    const [booklist, setbooklist] = useState([]);
 
     useEffect(() => {
+        if (!log.userType == 'author') {
+            toast.warn("You are not Author", { autoClose: 2100 })
+            return navigate('/login');
+        }
         fetche();
     }, [])
+    const tournacenter = useSelector((state) => state.tournacenter);
+    const [booklist, setbooklist] = useState([]);
 
     const fetche = async () => {
         const token = localStorage.getItem("bookstoretoken");
@@ -46,7 +53,7 @@ const Sellhistory = () => {
 
     return <div className="sellhistory">
         <div className="material">
-        <h2>Total Book Sold Record</h2>
+            <h2>Total Book Sold Record</h2>
             <table>
                 <thead>
                     <tr>
@@ -73,7 +80,7 @@ const Sellhistory = () => {
                 <tfoot>
                     <tr>
                         <th colSpan={5}>Total</th>
-                        <th colSpan={1}>{ booklist && booklist.reduce((total, book) => total + book.price, 0) }</th>
+                        <th colSpan={1}>{booklist && booklist.reduce((total, book) => total + book.price, 0)}</th>
                     </tr>
                 </tfoot>
             </table>

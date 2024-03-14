@@ -5,16 +5,23 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { useNavigate } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { setloader } from "../../store/login";
 import './admin.css'
 
 const Admin = () => {
+    const log = useSelector((state) => state.login);
+    const navigate = useNavigate();
+
     useEffect(() => {
+        if (!log.islogin) {
+            return navigate('/login');
+        }
         fetche();
     }, [])
-    const dispatch= useDispatch();
+    const dispatch = useDispatch();
     const [users, setusers] = useState([]);
     const tournacenter = useSelector((state) => state.tournacenter);
     const fetche = async () => {
@@ -55,7 +62,7 @@ const Admin = () => {
     }
     const [modalopen, setmodalopen] = useState(false);
     const init = {
-        id:'',
+        id: '',
         name: "",
         type: '',
         verified: ''
@@ -63,14 +70,14 @@ const Admin = () => {
     const [selectedUser, setselectedUser] = useState(init)
     const setedit = (user) => {
         setselectedUser({
-            id:user._id,
+            id: user._id,
             name: user.name,
             type: user.user_type,
             verified: user.isverified
         })
         setmodalopen(true);
     }
-    const [isloading,setisloading]= useState(false)
+    const [isloading, setisloading] = useState(false)
     const editee = async (e) => {
         e.preventDefault();
         // console.log(selectedUser);

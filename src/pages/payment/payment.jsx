@@ -7,18 +7,26 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { setloader } from '../../store/login';
+import { useNavigate } from "react-router-dom";
 
 const Payment = () => {
+    const navigate = useNavigate();
+    const log = useSelector((state) => state.login);
+    useEffect(() => {
+        if (!log.userType == 'author') {
+            toast.warn("You must login to proceed", { autoClose: 2100 })
+            return navigate('/login');
+        }
+        feteche();
+    }, [])
     const tournacenter = useSelector((state) => state.tournacenter);
     const { bookid } = useParams();
     const dispatch = useDispatch();
-    const [isloading,setisloading]= useState(false);
-    useEffect(() => {
-        feteche();
-    }, [])
-    const [book,setbook]= useState({});
-    const [coupon,setcoupon]= useState("");
-    const [date,setdate]= useState('');
+    const [isloading, setisloading] = useState(false);
+
+    const [book, setbook] = useState({});
+    const [coupon, setcoupon] = useState("");
+    const [date, setdate] = useState('');
 
     const feteche = async () => {
         try {
@@ -45,8 +53,8 @@ const Payment = () => {
         }
     }
     const buy = async () => {
-        if(date == ""){
-         return   toast.warn('Fill fill Buy Date', {autoClose:1800})
+        if (date == "") {
+            return toast.warn('Fill fill Buy Date', { autoClose: 1800 })
         }
         let bookId = book.bookId;
         let objectid = book._id
@@ -60,22 +68,22 @@ const Payment = () => {
                     "Authorization": `Bearer ${token}`,
                     "Content-Type": 'application/json'
                 },
-                body: JSON.stringify({coupon,objectid,date})
+                body: JSON.stringify({ coupon, objectid, date })
             });
 
             const responseData = await response.json();
             // console.log(responseData);
             if (!response.ok) {
-                return  toast.warn(responseData.message, {autoClose:2100});
+                return toast.warn(responseData.message, { autoClose: 2100 });
             }
-            toast.success(responseData.message, {autoClose:1600})
+            toast.success(responseData.message, { autoClose: 1600 })
             setisloading(false);
         } catch (error) {
             setisloading(false);
             console.error(error);
         }
     }
-    const handlechange=(e)=>{
+    const handlechange = (e) => {
         setdate(e.target.value);
     }
 
@@ -107,23 +115,23 @@ const Payment = () => {
                         <span>Final Price</span> <span>:</span> <span>{book && book.price}</span>
                     </div>
                     <div>
-                       <span>Buy Date</span> <span>:</span> <span><input value={date} onChange={handlechange} type="date" /></span>
+                        <span>Buy Date</span> <span>:</span> <span><input value={date} onChange={handlechange} type="date" /></span>
                     </div>
                 </div>
                 <p>
                     {/* <Button onClick={buy} sx={{ mt: 1 }} size='small' variant="contained">Proceed To Buy</Button> */}
                     <LoadingButton
-                            loading={isloading}
-                            loadingPosition="start"
-                            startIcon={<DoneIcon/>}
-                            variant="contained"
-                            onClick={buy}
-                            size='small'
-                            // sx={{width:'400px'}}
-                            sx={{ mt: 1}}
-                        >
-                            Proceed to Buy
-                        </LoadingButton>
+                        loading={isloading}
+                        loadingPosition="start"
+                        startIcon={<DoneIcon />}
+                        variant="contained"
+                        onClick={buy}
+                        size='small'
+                        // sx={{width:'400px'}}
+                        sx={{ mt: 1 }}
+                    >
+                        Proceed to Buy
+                    </LoadingButton>
                     <Button onClick={() => cancel(val.bookId)} sx={{ ml: 1, mt: 1 }} size='small' variant="outlined">Back</Button>
                 </p>
             </div>

@@ -1,18 +1,23 @@
-# Book Store System - Efficiently Manage Your Finances
+# Book Store System
 
 
 # Live
 Running At- bookstorefronted.vercel.app
 
 ### Sellcount Logic
+We have used Mongoose Session and Transaction to ensure Implement proper synchronization to handle race conditions on any book purchase
+
+
+### Sellcount Logic
 A sellcount field is provided in Book schema itself and as any book sell, it update its sellcount field with incremental value of 1 at the points of book sell.
 
 ### Sending email notifications.
- For sending email we have used gmail smpts. As any book sale we send email to related Author providing information like- who buy book, book price, purchase date.
+ For sending Email Notification, we Have used 'BullMQ' library to handle the message queue asynchronously and also implemented condtions like max 100 email per hour and a delay of 2s before sending another mail.
 
- And, Author can request for Sale stats email from Dashboard. Email provide information Monthly, yearly and Total sale information
+### Some Test Key
+id- admin@gmail.com , password = admin@123
 
-
+Note- any user id must a valid email for email verification or it can be manage in Admin panel, Admin can set Usertype and user verification.
 
 
 
