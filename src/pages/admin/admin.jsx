@@ -114,6 +114,31 @@ const Admin = () => {
             console.log(error);
         }
     }
+    const deletee= async(id)=>{
+        try {
+            dispatch(setloader(true));
+            const token = localStorage.getItem("bookstoretoken");
+            const res = await fetch(`${tournacenter.apiadress}/deleteuser`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": 'application/json'
+                },
+                body: JSON.stringify({id})
+            })
+            const response = await res.json();
+            // console.log(response);
+            dispatch(setloader(false));
+            if (!res.ok) {
+                return toast.warn(response.message, { autoClose: 2100 })
+            }
+            toast.success(response.message, { autoClose: 1600 })
+            fetche();
+            // setusers(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
     return <>
         <div className="admin">
             <div className="material">
@@ -140,7 +165,7 @@ const Admin = () => {
                                 <td>{formatMongoDate(val.createdAt)}</td>
                                 <td>
                                     <span onClick={() => setedit(val)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></span>
-                                    <span><i className="fa fa-trash" aria-hidden="true"></i></span>
+                                    <span onClick={() => deletee(val_id)} ><i className="fa fa-trash" aria-hidden="true"></i></span>
                                 </td>
                             </tr>
                         })}
