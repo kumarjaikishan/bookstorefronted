@@ -37,7 +37,7 @@ const Signup = ({ setlog }) => {
 
     const submite = async (e) => {
         e.preventDefault();
-        setbtnclick(true);
+        
 
         const { name, email, phone, password, cpassword } = signinp;
         if (!name || !email || !phone || !password) {
@@ -55,9 +55,8 @@ const Signup = ({ setlog }) => {
             setbtnclick(false);
             return;
         }
-
+        setbtnclick(true);
         try {
-            dispatch(setloader(true));
             const res = await fetch(`${tournacenter.apiadress}/signup`, {
                 method: "POST",
                 headers: {
@@ -68,22 +67,18 @@ const Signup = ({ setlog }) => {
                 })
             })
             const datae = await res.json();
+            setbtnclick(false);
             // console.log(datae);
             if (res.ok) {
                 // setsigninp(init);
                 toast.success("Signup Successful,verify your Email", { autoClose: 2800 })
-                setbtnclick(false);
                 setlog(true)
-                dispatch(setloader(false));
             } else {
-                dispatch(setloader(false));
-                setbtnclick(false);
                 toast.warn(datae.msg, { autoClose: 3600 })
             }
 
             // console.log(datae);
         } catch (error) {
-            dispatch(setloader(false));
             setbtnclick(false);
             toast.warn(error.msg, { autoClose: 3600 })
             console.log(error);
