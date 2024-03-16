@@ -4,8 +4,7 @@ export const alltourna = createAsyncThunk("alltourna", async () => {
     const token = localStorage.getItem("token");
     // console.time("time taken by userdata");
     try {
-        const res = await fetch(`https://storebackend01.vercel.app/api/gettournament`, {
-        // const res = await fetch(`http://localhost:5000/api/gettournament`, {
+        const res = await fetch(`${import.meta.env.VITE_API_ADDRESS}gettournament`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -29,8 +28,6 @@ const tournacenter = createSlice({
         error: null,
         profilepic: "",
         createnewmodal: false,
-        apiadress: "https://storebackend01.vercel.app/api",
-        // apiadress: "http://localhost:5000/api",
     },
     reducers: {
         userlogout(state, action) {

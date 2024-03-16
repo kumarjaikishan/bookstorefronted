@@ -18,9 +18,7 @@ import { useEffect } from 'react';
 function App() {
   const dispatch = useDispatch();
   const log = useSelector((state) => state.login);
-  useEffect(()=>{
-    console.log(import.meta.env.VITE_API_ADDRESS);
-  },[])
+
 
 
   return (
