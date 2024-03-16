@@ -13,10 +13,14 @@ import Sellhistory from './pages/author/sellhistory';
 import Bookdetail from './pages/bookdetail/bookdetail';
 import Payment from './pages/payment/payment';
 import Admin from './pages/admin/admin';
+import { useEffect } from 'react';
 
 function App() {
   const dispatch = useDispatch();
   const log = useSelector((state) => state.login);
+  useEffect(()=>{
+    console.log(import.meta.env.VITE_API_ADDRESS);
+  },[])
 
 
   return (

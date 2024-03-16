@@ -62,7 +62,7 @@ const Payment = () => {
         try {
             setisloading(true);
             const token = localStorage.getItem("bookstoretoken");
-            const response = await fetch(`${tournacenter.apiadress}/buybook/${bookid}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_ADDRESS}buybook/${bookid}`, {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${token}`,

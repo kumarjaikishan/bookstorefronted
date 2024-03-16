@@ -27,7 +27,7 @@ const Bookdetail = () => {
         try {
             dispatch(setloader(true));
             const token = localStorage.getItem("bookstoretoken");
-            const response = await fetch(`${tournacenter.apiadress}/bookdetail/${bookid}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_ADDRESS}bookdetail/${bookid}`, {
                 method: "GET",
                 headers: {
                     "Authorization": `Bearer ${token}`,

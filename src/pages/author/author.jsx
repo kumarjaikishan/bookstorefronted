@@ -39,7 +39,7 @@ const Author = () => {
         // console.log(token);
         try {
             dispatch(setloader(true));
-            const response = await fetch(`${tournacenter.apiadress}/getaurthorbooks`, {
+            const response = await fetch(`${import.meta.env.VITE_API_ADDRESS}getaurthorbooks`, {
                 method: "GET",
                 headers: {
                     "Authorization": `Bearer ${token}`,
@@ -66,7 +66,7 @@ const Author = () => {
         // console.log(token);
         try {
             setisloading(true);
-            const response = await fetch(`${tournacenter.apiadress}/revenuedetail`, {
+            const response = await fetch(`${import.meta.env.VITE_API_ADDRESS}revenuedetail`, {
                 method: "GET",
                 headers: {
                     "Authorization": `Bearer ${token}`,
@@ -94,7 +94,7 @@ const Author = () => {
         try {
             dispatch(setloader(true));
             const token = localStorage.getItem("bookstoretoken");
-            const response = await fetch(`${tournacenter.apiadress}/deletebook`, {
+            const response = await fetch(`${import.meta.env.VITE_API_ADDRESS}deletebook`, {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${token}`,

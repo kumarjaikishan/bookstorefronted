@@ -23,7 +23,7 @@ const Sellhistory = () => {
         // console.log(token);
         try {
             dispatch(setloader(true));
-            const response = await fetch(`${tournacenter.apiadress}/sellhistory`, {
+            const response = await fetch(`${import.meta.env.VITE_API_ADDRESS}sellhistory`, {
                 method: "GET",
                 headers: {
                     "Authorization": `Bearer ${token}`,

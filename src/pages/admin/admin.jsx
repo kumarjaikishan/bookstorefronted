@@ -28,7 +28,7 @@ const Admin = () => {
         try {
             dispatch(setloader(true));
             const token = localStorage.getItem("bookstoretoken");
-            const res = await fetch(`${tournacenter.apiadress}/getusers`, {
+            const res = await fetch(`${import.meta.env.VITE_API_ADDRESS}getusers`, {
                 method: "GET",
                 headers: {
                     "Authorization": `Bearer ${token}`,
@@ -85,7 +85,7 @@ const Admin = () => {
             dispatch(setloader(true));
             setisloading(true)
             const token = localStorage.getItem("bookstoretoken");
-            const res = await fetch(`${tournacenter.apiadress}/edituser`, {
+            const res = await fetch(`${import.meta.env.VITE_API_ADDRESS}edituser`, {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${token}`,
@@ -118,7 +118,7 @@ const Admin = () => {
         try {
             dispatch(setloader(true));
             const token = localStorage.getItem("bookstoretoken");
-            const res = await fetch(`${tournacenter.apiadress}/deleteuser`, {
+            const res = await fetch(`${import.meta.env.VITE_API_ADDRESS}deleteuser`, {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${token}`,
