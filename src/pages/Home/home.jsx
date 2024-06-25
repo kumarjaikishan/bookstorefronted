@@ -5,10 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import Button from '@mui/material/Button';
 import { setloader } from '../../store/login';
+import { toast } from "react-toastify";
 import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
 
 const Home = () => {
-    const tournacenter = useSelector((state) => state.tournacenter);
     const [booklist, setbooklist] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -28,14 +28,17 @@ const Home = () => {
             });
 
             const responseData = await response.json();
-            // console.log(responseData);
+            console.log(responseData);
             dispatch(setloader(false));
-            if (response.ok) {
-                setbooklist(responseData.data)
+           
+            if (!response.ok) {
+                toast.warn(responseData.message, { autoClose: 2100 });
+               return navigate('/login');
             }
+            setbooklist(responseData.data)
         } catch (error) {
             dispatch(setloader(false));
-            console.error(error);
+            console.log(error);
             // dispatch(setloader(false));
         }
     }

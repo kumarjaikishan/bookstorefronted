@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import './payment.css';
 import Button from '@mui/material/Button';
 import DoneIcon from '@mui/icons-material/Done';
@@ -7,32 +7,32 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { setloader } from '../../store/login';
-import { useNavigate } from "react-router-dom";
 
 const Payment = () => {
-    const navigate = useNavigate();
-    const log = useSelector((state) => state.login);
-    useEffect(() => {
-        if (!log.userType == 'author') {
-            toast.warn("You must login to proceed", { autoClose: 2100 })
-            return navigate('/login');
-        }
-        feteche();
-    }, [])
-    const tournacenter = useSelector((state) => state.tournacenter);
     const { bookid } = useParams();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [isloading, setisloading] = useState(false);
+    const log = useSelector((state) => state.login);
 
+    const [isloading, setisloading] = useState(false);
     const [book, setbook] = useState({});
     const [coupon, setcoupon] = useState("");
     const [date, setdate] = useState('');
 
-    const feteche = async () => {
+    useEffect(() => {
+        if (!log.userType === 'author') {
+            toast.warn("You must login to proceed", { autoClose: 2100 });
+            navigate('/login');
+        } else {
+            fetchBook();
+        }
+    }, []);
+
+    const fetchBook = async () => {
         try {
             dispatch(setloader(true));
             const token = localStorage.getItem("bookstoretoken");
-            const response = await fetch(`${tournacenter.apiadress}/getbook/${bookid}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_ADDRESS}getbook/${bookid}`, {
                 method: "GET",
                 headers: {
                     "Authorization": `Bearer ${token}`,
@@ -41,58 +41,110 @@ const Payment = () => {
 
             const responseData = await response.json();
             dispatch(setloader(false));
-            // console.log(responseData);
             if (!response.ok) {
                 return;
             }
-            setbook(responseData.data)
-
+            setbook(responseData.data);
         } catch (error) {
             dispatch(setloader(false));
             console.error(error);
         }
-    }
+    };
+
     const buy = async () => {
-        if (date == "") {
-            return toast.warn('Fill fill Buy Date', { autoClose: 1800 })
+        if (!date) {
+            return toast.warn('Fill Buy Date', { autoClose: 1800 });
         }
-        let bookId = book.bookId;
-        let objectid = book._id
-        // console.log(date);
+
+        let amount = book.price * 100;
+        let currency = 'INR';
+
         try {
             setisloading(true);
             const token = localStorage.getItem("bookstoretoken");
-            const response = await fetch(`${import.meta.env.VITE_API_ADDRESS}buybook/${bookid}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_ADDRESS}createorder`, {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${token}`,
                     "Content-Type": 'application/json'
                 },
-                body: JSON.stringify({ coupon, objectid, date })
+                body: JSON.stringify({ amount })
             });
 
             const responseData = await response.json();
-            // console.log(responseData);
-            if (!response.ok) {
-                return toast.warn(responseData.message, { autoClose: 2100 });
-            }
-            toast.success(responseData.message, { autoClose: 1600 })
+
+            const options = {
+                key: 'rzp_test_24l81VEe4kldIm', // replace with your Razorpay key id
+                amount: amount * 100, // Razorpay expects amount in paise
+                currency,
+                name: 'Battlefiesta',
+                description: 'Battlefiesta description',
+                image: 'https://res.cloudinary.com/dusxlxlvm/image/upload/v1709654642/battlefiesta/assets/logo/logopng250_vuhy4f.webp',
+                order_id: responseData.id,
+                handler: async (response) => {
+                    await bookPurchased(response);
+                },
+                prefill: {
+                    name: 'Battlefiesta Two',
+                    email: 'kumar.jaikishan1@gmail.com',
+                    contact: '1234578456'
+                },
+                notes: {
+                    address: 'My address'
+                },
+                theme: {
+                    color: '#3399cc'
+                }
+            };
+
+            const rzp1 = new Razorpay(options);
+            rzp1.on('payment.failed', function (response) {
+                alert(response.error.description);
+            });
+            rzp1.open();
             setisloading(false);
         } catch (error) {
             setisloading(false);
             console.error(error);
         }
-    }
-    const handlechange = (e) => {
-        setdate(e.target.value);
-    }
+    };
 
-    return <>
-        {/* <h1>{bookid}</h1> */}
+    const bookPurchased = async (data) => {
+        try {
+            const token = localStorage.getItem("bookstoretoken");
+            const response = await fetch(`${import.meta.env.VITE_API_ADDRESS}purchesed`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": 'application/json'
+                },
+                body: JSON.stringify({
+                    order_id: data.razorpay_order_id,
+                    payment_id: data.razorpay_payment_id,
+                    bookId: book.bookId,
+                    objectid: book._id,
+                    date
+                })
+            });
+
+            const responseData = await response.json();
+            toast.success('Transaction successful', { autoClose: 1600 });
+            // navigate('/order-details', { state: { order: responseData, paymentResponse: data } });
+            navigate('/');
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const handleChange = (e) => {
+        setdate(e.target.value);
+    };
+
+    return (
         <div className="paymentpage">
             <div className="material">
                 <h2>Payment Page</h2>
-                <h4>book details</h4>
+                <h4>Book Details</h4>
                 <div>
                     <div>
                         <span>Book Name</span> <span>:</span> <span>{book && book.book_title}</span>
@@ -115,11 +167,10 @@ const Payment = () => {
                         <span>Final Price</span> <span>:</span> <span>{book && book.price}</span>
                     </div>
                     <div>
-                        <span>Buy Date</span> <span>:</span> <span><input value={date} onChange={handlechange} type="date" /></span>
+                        <span>Buy Date</span> <span>:</span> <span><input value={date} onChange={handleChange} type="date" /></span>
                     </div>
                 </div>
                 <p>
-                    {/* <Button onClick={buy} sx={{ mt: 1 }} size='small' variant="contained">Proceed To Buy</Button> */}
                     <LoadingButton
                         loading={isloading}
                         loadingPosition="start"
@@ -127,15 +178,15 @@ const Payment = () => {
                         variant="contained"
                         onClick={buy}
                         size='small'
-                        // sx={{width:'400px'}}
                         sx={{ mt: 1 }}
                     >
                         Proceed to Buy
                     </LoadingButton>
-                    <Button onClick={() => cancel(val.bookId)} sx={{ ml: 1, mt: 1 }} size='small' variant="outlined">Back</Button>
+                    <Button onClick={() => navigate(-1)} sx={{ ml: 1, mt: 1 }} size='small' variant="outlined">Back</Button>
                 </p>
             </div>
         </div>
-    </>
-}
+    );
+};
+
 export default Payment;

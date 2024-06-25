@@ -23,13 +23,15 @@ const Navbar = () => {
           </div>
           <nav>
             <ul>
-              {log.userType == "retail" && <> <NavLink className="navlink" to='/'><li>Dashboard</li></NavLink>
+              {log.userType == "retail" && log.islogin && <> <NavLink className="navlink" to='/'><li>Dashboard</li></NavLink>
                 <NavLink className="navlink" to='/book'><li>Book Store</li></NavLink>
               </>}
-              {log.userType == "author" && <NavLink className="navlink" to='/author'><li>Dashboard</li></NavLink>}
+              {log.userType == "author" && log.islogin && <NavLink className="navlink" to='/author'><li>Dashboard</li></NavLink>}
 
-              {log.userType == "admin" && <NavLink className="navlink" to='/admin'><li>Admin</li></NavLink>}
-              <NavLink className="navlink" to='/logout'><li>Logout</li></NavLink>
+              {log.userType == "admin" && log.islogin && <NavLink className="navlink" to='/admin'><li>Admin</li></NavLink>}
+             {log.islogin  &&  <NavLink className="navlink" to='/logout'><li>Logout</li></NavLink>} 
+             {!log.islogin  &&  <NavLink className="navlink" to='/login'><li>Login</li></NavLink>} 
+            
             </ul>
           </nav>
         </header>
