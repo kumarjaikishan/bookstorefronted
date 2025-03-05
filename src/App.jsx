@@ -13,12 +13,12 @@ import Sellhistory from './pages/author/sellhistory';
 import Bookdetail from './pages/bookdetail/bookdetail';
 import Payment from './pages/payment/payment';
 import Admin from './pages/admin/admin';
-import { useEffect } from 'react';
+import AuthorRoute from './middleware/authorRoute';
+import AdminRoute from './middleware/adminRoute';
 
 function App() {
   const dispatch = useDispatch();
   const log = useSelector((state) => state.login);
-
 
 
   return (
@@ -26,7 +26,7 @@ function App() {
       <ToastContainer closeOnClick={true} pauseOnFocusLoss={true} />
       <div className="App" >
         <Navbar />
-        <div className={log.loader ? 'main loader':'main'} >
+        <div className={log.loader ? 'main loader' : 'main'} >
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/book"  >
@@ -34,9 +34,16 @@ function App() {
               <Route path=":bookid" element={<Bookdetail />} />
             </Route>
             <Route path="/payment/:bookid" element={<Payment />} />
-            <Route path="/author" element={<Author />} />
-            <Route path="/sellhistory" element={<Sellhistory />} />
-            <Route path="/admin" element={<Admin />} />
+
+            <Route element={<AuthorRoute />}>
+              <Route path="/author" element={<Author />} />
+              <Route path="/sellhistory" element={<Sellhistory />} />
+            </Route>
+
+            <Route element={<AdminRoute />}>
+              <Route path="/admin" element={<Admin />} />
+            </Route>
+
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
           </Routes>

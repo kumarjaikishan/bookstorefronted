@@ -9,13 +9,8 @@ const Sellhistory = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!log.userType == 'author') {
-            toast.warn("You are not Author", { autoClose: 2100 })
-            return navigate('/login');
-        }
         fetche();
     }, [])
-    const tournacenter = useSelector((state) => state.tournacenter);
     const [booklist, setbooklist] = useState([]);
 
     const fetche = async () => {

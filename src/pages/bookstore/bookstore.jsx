@@ -36,7 +36,7 @@ const Bookstore = () => {
             });
 
             const responseData = await response.json();
-            // console.log(responseData);
+            console.log(responseData);
             if (!response.ok) {
                 dispatch(setloader(false));
                 return;
@@ -141,7 +141,7 @@ const Bookstore = () => {
                             <div className="img">
                                 <img src={book} alt="" />
                                 <span className="reviews">{val.Noofrating} Reviews</span>
-                                <span className="rating">Rating: {val.rating}</span>
+                                <span className="rating">⭐: {val.rating}</span>
                                 
                                 <span className="btn" onClick={() => setmodal(val)} title='Rate'><StarBorderIcon /> </span>
                             </div>
@@ -167,7 +167,7 @@ const Bookstore = () => {
 
                                 <div className='buttons'>
                                     <Button onClick={() => bookdetail(val.slug_value)} sx={{ mt: 1 }} size='small' variant="contained">Details</Button>
-                                    <Button onClick={() => buypage(val.bookId)} sx={{ mt: 1 }} size='small' variant="outlined">Buy Now</Button>
+                                    <Button disabled={val.purchased} onClick={() => buypage(val.bookId)} sx={{ mt: 1 }} size='small' variant="outlined">{val.purchased ? 'Purchased':'Buy Now'}</Button>
                                 </div>
                             </div>
                         </div>

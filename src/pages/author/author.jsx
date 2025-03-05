@@ -20,13 +20,8 @@ const Author = () => {
     const navigate = useNavigate();
     const log = useSelector((state) => state.login);
     useEffect(() => {
-        if (!log.userType=='author') {
-            toast.warn("You are not Author",{autoClose:2100})
-            return navigate('/login');
-        }
         fetche();
     }, [])
-    const tournacenter = useSelector((state) => state.tournacenter);
     const [booklist, setbooklist] = useState([]);
     const [booksale, setbooksale] = useState([]);
   
@@ -185,7 +180,7 @@ const Author = () => {
                             <div className="img">
                                 <img src={book} alt="" /> 
                                 <span className="reviews">{val.Noofrating} Reviews</span>
-                                <span className="rating">Rating: {val.rating}</span>
+                                <span className="rating">⭐: {val.rating}</span>
                             </div>
                             <div className="detail">
                                 <div>

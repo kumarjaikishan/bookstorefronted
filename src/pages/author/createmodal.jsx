@@ -8,7 +8,6 @@ import { useState } from 'react';
 import { toast } from "react-toastify";
 
 const Cretaemodal = ({ setopenmodal,fetche }) => {
-    const tournacenter = useSelector((state) => state.tournacenter);
     const init = {
         book_title: "",
         author_name: "",

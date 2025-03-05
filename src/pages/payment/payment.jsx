@@ -87,7 +87,7 @@ const Payment = () => {
                 prefill: {
                     name: 'Battlefiesta Two',
                     email: 'kumar.jaikishan1@gmail.com',
-                    contact: '1234578456'
+                    contact: '8754859524'
                 },
                 notes: {
                     address: 'My address'

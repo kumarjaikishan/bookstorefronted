@@ -70,7 +70,7 @@ const Bookdetail = () => {
                 <div><span>price</span> <span>:</span><span>{book.price}</span></div>
                 <div><span>Published On</span> <span>:</span><span>{formatMongoDate(book.createdAt)}</span></div>
                 <div>
-                    {log.userType == "retail" && <Button sx={{ mt: 2, mb: 1 }} onClick={() => navigate(`/payment/${book.bookId}`)} variant="contained">Proceed to Buy</Button>}
+                    {log.userType == "retail" && <Button sx={{ mt: 2, mb: 1 }} disabled={book.purchased} onClick={() => navigate(`/payment/${book.bookId}`)} variant="contained">{book.purchased? "Purchased":"Proceed to Buy"}</Button>}
                 </div>
                 <b>Description:- </b>
                 <p>{book.description}</p>

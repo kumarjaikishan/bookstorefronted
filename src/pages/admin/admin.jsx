@@ -16,9 +16,6 @@ const Admin = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!log.islogin) {
-            return navigate('/login');
-        }
         fetche();
     }, [])
     const dispatch = useDispatch();
