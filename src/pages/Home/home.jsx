@@ -72,24 +72,23 @@ const Home = () => {
                             return <div className="card" key={ind}>
                                 <div className="img">
                                     <img src={book} alt="" />
-                                    <span className="rating">Rating: {val.bookId.rating}</span>
+                                    <span className="rating">Rating: {val?.bookId?.rating}</span>
                                 </div>
                                 <div className="detail">
                                     <div>
-                                        <span>Name</span> <span>:</span> <span>{val.bookId.book_title}</span>
+                                        <span>Name</span> <span>:</span> <span>{val?.bookId?.book_title}</span>
                                     </div>
                                     <div>
-                                        <span>Author</span> <span>:</span> <span>{val.bookId.author_name}</span>
+                                        <span>Author</span> <span>:</span> <span>{val?.bookId?.author_name}</span>
                                     </div>
                                     <div>
-                                        <span>Price</span> <span>:</span> <span>{val.price}</span>
+                                        <span>Price</span> <span>:</span> <span>{val?.price}</span>
                                     </div>
                                     <div>
-                                        <span>Buy Date</span> <span>:</span> <span>{formatMongoDate(val.purchaseDate)}</span>
+                                        <span>Buy Date</span> <span>:</span> <span>{formatMongoDate(val?.purchaseDate)}</span>
                                     </div>
                                     <div>
                                         <Button onClick={() => bookdetail(val.bookId.slug_value)} sx={{ mt: 1 }} size='small' variant="contained">Details</Button>
-                                       
                                     </div>
                                 </div>
                             </div>
